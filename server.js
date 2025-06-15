@@ -3,11 +3,10 @@ import http from "node:http";
 const PORT = 8000;
 
 const server = http.createServer((req, res) => {
-    res.setHeader("Content-Type", "text/html");
-    res.statusCode = 200;
 
-    res.write("<h1>Hello, NodeJS<h1>");
-    res.end()
+    res.writeHead(500, {'content-type' : 'application/json'});
+
+    res.end(JSON.stringify({ message : 'Server Error'}));
 })
 
 server.listen(PORT, () => {
