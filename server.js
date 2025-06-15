@@ -1,12 +1,12 @@
 import http from "node:http";
 
-const PORT = 8000;
+const PORT = process.env.PORT;
 
 const server = http.createServer((req, res) => {
 
-    res.writeHead(500, {'content-type' : 'application/json'});
+    res.writeHead(200, {'content-type' : 'text/html'});
 
-    res.end(JSON.stringify({ message : 'Server Error'}));
+    res.end("<h1>Hello, node.js!</h1>");
 })
 
 server.listen(PORT, () => {
