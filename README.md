@@ -1,5 +1,7 @@
 # Node.JS server
 
+Make sure to setup the PORT value in the .env file
+
 Install dependencies:
 
 ```bash

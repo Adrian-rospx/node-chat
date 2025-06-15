@@ -1,33 +1,47 @@
 import http from "node:http";
+import fs from "node:fs/promises";
+import url from "node:url";
+import path from "node:path";
 
 const PORT = process.env.PORT;
 
-const server = http.createServer((req, res) => {
-    // basic client server setup
+// get file and directory paths
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
+// create the server
+const server = http.createServer(async (req, res) => {
+    // basic client server setup
     try {
+        // only accept GET requests
         if(req.method === "GET") {
+
+            let filePath;
             // simple routing
             if(req.url === "/") {
-                res.writeHead(200, {"content-type" : "text/html"});
-                res.end("<h1> Welcome to the Homepage </h1>");
+                filePath = path.join(__dirname, "public", "index.html");
             } else if(req.url === "/about") {
-                res.writeHead(200, {"content-type" : "text/html"});
-                res.end("<h1>This page was written by Adrian</h1>");
+                filePath = path.join(__dirname, "public", "about.html");
             } else {
-                res.writeHead(404, {"content-type" : "text/html"});
-                res.end("<h1>This address is not available</h1>");
+                throw new Error('Page not found');
             }
-        }
-        else {
-            throw new Error("Method not allowed");
+
+            // send files to client
+            const data = await fs.readFile(filePath);
+            res.setHeader("Content-Type", "text/html");
+            res.write(data);
+            res.end();
+
+        } else {
+            throw new Error(`Method ${req.method} not allowed`);
         }
     } catch (error) {
         res.writeHead(500, {"Content-Type" : "text/plain"});
-        res.end("Server error");
+        res.end(`Server error: ${error}`);
     }
 })
 
+// activate the server
 server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
