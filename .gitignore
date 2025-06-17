@@ -2,3 +2,7 @@
 .env
 # dependencies
 node_modules
+
+# testing
+Text.txt
+textw.txt
