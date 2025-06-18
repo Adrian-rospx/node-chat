@@ -7,8 +7,9 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node --env-file=.env server-api.js",
-    "dev": "nodemon --env-file=.env server-api.js"
+    "start": "node --env-file=.env server-http.js",
+    "dev": "nodemon --env-file=.env server-http.js",
+    "api": "node --env-file=.env server-api.js"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"

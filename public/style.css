@@ -1,0 +1,9 @@
+/* 
+    CSS attempt, 
+    not working, 
+    requires special routing
+*/
+h1 {
+    display: inline-block;
+    font-size: large;
+}
